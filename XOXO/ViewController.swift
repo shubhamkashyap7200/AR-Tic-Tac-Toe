@@ -165,6 +165,12 @@ extension ViewController {
     
     // Add code here...
     func initMultiplierSession() {
+        sessionIDObservation = observe(\.arView?.session.identifier, options: [.new] ,changeHandler: { (object, change) in
+            print("DEBUG:: Networking :: Current SessionID:: \(String(describing: change.newValue))")
+            guard let multipeerSession = self.multipeerSession else { return }
+            self.sendARSessionIDTo(peers: multipeerSession.connectedPeers)
+        })
+
         multipeerSession = MultipeerSession(
             receivedDataHandler: receivedData,
             peerJoinedHandler: peerJoined,
