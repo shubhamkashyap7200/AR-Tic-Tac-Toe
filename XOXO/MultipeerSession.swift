@@ -113,3 +113,11 @@ extension MultipeerSession: MCNearbyServiceAdvertiserDelegate {
         invitationHandler(true, self.session)
     }
 }
+
+
+// MARK: - Reality Kit Extension
+extension MultipeerSession {
+    public var multipeerConnectivityService: MultipeerConnectivityService? {
+        return try? MultipeerConnectivityService(session: self.session)
+    }
+}
