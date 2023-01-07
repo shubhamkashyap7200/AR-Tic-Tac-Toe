@@ -10,6 +10,9 @@ class ViewController: UIViewController, ARSessionDelegate {
     var gridModelEntityX: ModelEntity?
     var gridModelEntityY: ModelEntity?
     var tileModelEntity: ModelEntity?
+    var multipeerSession: MultipeerSession?
+    var peerSessionIDs = [MCPeerID : String]()
+    var sessionIDObservation : NSKeyValueObservation?
     
     // MARK: - IBOutlets & IBActions
     
