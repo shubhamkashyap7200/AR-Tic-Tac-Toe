@@ -7,6 +7,9 @@ class ViewController: UIViewController, ARSessionDelegate {
     
     // MARK: - Properties
     var playerColor: UIColor = .blue
+    var gridModeEntityX: ModelEntity?
+    var gridModeEntityY: ModelEntity?
+    var tileModeEntity: ModelEntity?
     
     // MARK: - IBOutlets & IBActions
     
@@ -28,6 +31,8 @@ class ViewController: UIViewController, ARSessionDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        initModelEntities()
     }
     
     func initARView() {
@@ -38,6 +43,29 @@ class ViewController: UIViewController, ARSessionDelegate {
         arConfiguration.planeDetection = [ .horizontal ]
         arConfiguration.environmentTexturing = .automatic
         arView.session.run(arConfiguration)
+    }
+    
+    func initModelEntities() {
+        // 1
+        gridModeEntityX = ModelEntity(
+            mesh: .generateBox(size: SIMD3(x: 0.3, y: 0.01, z: 0.01)),
+            materials: [SimpleMaterial(color: .white, isMetallic: false)]
+        )
+        
+        // 2
+        gridModeEntityY = ModelEntity(
+            mesh: .generateBox(size: SIMD3(x: 0.01, y: 0.01, z: 0.3)),
+            materials: [SimpleMaterial(color: .white, isMetallic: false)]
+        )
+        
+        // 3
+        tileModeEntity = ModelEntity(
+            mesh: .generateBox(size: SIMD3(x: 0.07, y: 0.01, z: 0.07)),
+            materials: [SimpleMaterial(color: .gray, isMetallic: true)]
+        )
+        
+        // 4
+        tileModeEntity?.generateCollisionShapes(recursive: false)
     }
 }
 
