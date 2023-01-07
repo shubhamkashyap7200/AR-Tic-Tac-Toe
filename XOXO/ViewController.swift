@@ -28,6 +28,7 @@ class ViewController: UIViewController, ARSessionDelegate {
     }
     
     @IBAction func clearButtonPressed(_ sender: Any) {
+        removeAnchors()
     }
     
     // MARK: - AR View Functions
@@ -254,6 +255,15 @@ extension ViewController {
         DispatchQueue.main.async {
             self.message.text = message
         }
+    }
+    
+    func removeAnchors() {
+        guard let frame = arView.session.currentFrame else { return }
+        for anchor in frame.anchors {
+            arView.session.remove(anchor: anchor)
+        }
+                
+        sendMessage("All anchors removed!")
     }
 }
 
