@@ -80,6 +80,22 @@ extension ViewController {
         return newModelEntity
     }
     
+    func addGameBoardAnchor(transform: simd_float4x4) {
+        // 1
+        let arAnchor = ARAnchor(name: "XOXO Grid", transform: transform)
+        
+        // 2
+        let anchorEntity = AnchorEntity(anchor: arAnchor)
+        
+        // 3
+        if let entityX = gridModeEntityX, let entityY = gridModeEntityY {
+            anchorEntity.addChild(cloneModelEntity(entityY, position: SIMD3(x: 0.05, y: 0, z: 0)))
+            anchorEntity.addChild(cloneModelEntity(entityY, position: SIMD3(x: -0.05, y: 0, z: 0)))
+            anchorEntity.addChild(cloneModelEntity(entityX, position: SIMD3(x: 0.0, y: 0, z: 0.05)))
+            anchorEntity.addChild(cloneModelEntity(entityX, position: SIMD3(x: 0.0, y: 0, z: -0.05)))
+        }
+    }
+    
 }
 
 // MARK: - Gesture Functions
