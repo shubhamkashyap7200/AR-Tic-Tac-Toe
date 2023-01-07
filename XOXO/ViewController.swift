@@ -47,6 +47,7 @@ class ViewController: UIViewController, ARSessionDelegate {
         let arConfiguration = ARWorldTrackingConfiguration()
         arConfiguration.planeDetection = [ .horizontal ]
         arConfiguration.environmentTexturing = .automatic
+        arConfiguration.isCollaborationEnabled = true
         arView.session.run(arConfiguration)
     }
     
