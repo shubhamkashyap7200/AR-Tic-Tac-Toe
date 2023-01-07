@@ -165,6 +165,15 @@ extension ViewController {
 extension ViewController {
     
     // Add code here...
+    func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
+        for anchor in anchors {
+            if let participantAnchor = anchor as? ARParticipantAnchor {
+                self.message.text = "Peer connected!"
+                let anchorEntity = AnchorEntity(anchor: participantAnchor)
+                arView.scene.addAnchor(anchorEntity)
+            }
+        }
+    }
     func initMultiplierSession() {
         sessionIDObservation = observe(\.arView?.session.identifier, options: [.new] ,changeHandler: { (object, change) in
             print("DEBUG:: Networking :: Current SessionID:: \(String(describing: change.newValue))")
