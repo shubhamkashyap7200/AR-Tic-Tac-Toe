@@ -174,6 +174,7 @@ extension ViewController {
             }
         }
     }
+    
     func initMultiplierSession() {
         sessionIDObservation = observe(\.arView?.session.identifier, options: [.new] ,changeHandler: { (object, change) in
             print("DEBUG:: Networking :: Current SessionID:: \(String(describing: change.newValue))")
