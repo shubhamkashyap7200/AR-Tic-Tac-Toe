@@ -108,6 +108,11 @@ extension ViewController {
             anchorEntity.addChild(cloneModelEntity(tileEntity, position: SIMD3(x: 0.0, y: 0, z: 0.1)))
             anchorEntity.addChild(cloneModelEntity(tileEntity, position: SIMD3(x: 0.1, y: 0, z: 0.1)))
         }
+        
+        // 5
+        anchorEntity.anchoring = AnchoringComponent(arAnchor)
+        arView.scene.addAnchor(anchorEntity)
+        arView.session.add(anchor: arAnchor)
     }
 }
 
