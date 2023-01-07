@@ -117,6 +117,7 @@ extension ViewController {
         
         // 5
         anchorEntity.anchoring = AnchoringComponent(arAnchor)
+        anchorEntity.synchronization?.ownershipTransferMode = .autoAccept
         arView.scene.addAnchor(anchorEntity)
         arView.session.add(anchor: arAnchor)
     }
