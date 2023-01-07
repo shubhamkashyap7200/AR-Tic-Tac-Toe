@@ -33,6 +33,7 @@ class ViewController: UIViewController, ARSessionDelegate {
         super.viewDidAppear(animated)
         
         initModelEntities()
+        initGestures()
     }
     
     func initARView() {
@@ -121,7 +122,15 @@ extension ViewController {
 extension ViewController {
     
     // Add code here...
+    func initGestures() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        self.arView.addGestureRecognizer(tapGesture)
+    }
     
+    // MARK: - Selectors
+    @objc func handleTap() {
+        print("DEBUG:: UI :: \(#function) is called")
+    }
 }
 
 
