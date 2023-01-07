@@ -178,6 +178,13 @@ extension ViewController {
             peerLeftHandler: peerLeft,
             peerDiscoveredHandler: peerDiscovered
         )
+        
+        guard let multipeerSessionService = multipeerSession?.multipeerConnectivityService else {
+            fatalError("DEBUG:: Fatal Error :: [FATAL ERROR] Unable to create Sync Service!")
+        }
+        
+        arView.scene.synchronizationService = multipeerSessionService
+        self.message.text = "Waiting for peers..."
     }
     
     func receivedData(_ data: Data, from peer: MCPeerID) {
