@@ -178,7 +178,7 @@ extension ViewController {
     }
     
     func peerDiscovered(_ peer: MCPeerID) -> Bool {
-        
+        return false
     }
     
     func peerJoined(_ peer: MCPeerID) {
@@ -187,6 +187,15 @@ extension ViewController {
     
     func peerLeft(_ peer: MCPeerID) {
         
+    }
+    
+    private func sendARSessionIDTo(peers: [MCPeerID]) {
+        guard let multipeerSession = multipeerSession else { return }
+        let idString = arView.session.identifier.uuidString
+        let command = "SessionID:" + idString
+        if let commandData = command.data(using: .utf8) {
+            multipeerSession.sendToPeers(commandData, reliably: true, peers: peers)
+        }
     }
     
 }
