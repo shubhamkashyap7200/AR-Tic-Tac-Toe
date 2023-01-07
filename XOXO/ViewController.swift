@@ -202,7 +202,8 @@ extension ViewController {
     }
     
     func peerLeft(_ peer: MCPeerID) {
-        
+        sendMessage("Peer left!")
+        peerSessionIDs.removeValue(forKey: peer)
     }
     
     private func sendARSessionIDTo(peers: [MCPeerID]) {
