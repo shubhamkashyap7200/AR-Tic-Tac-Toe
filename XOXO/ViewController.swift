@@ -184,7 +184,16 @@ extension ViewController {
     }
     
     func peerDiscovered(_ peer: MCPeerID) -> Bool {
-        return false
+        guard let multipeerSession = multipeerSession else { return false }
+        sendMessage("Peer discovered!")
+        
+        if multipeerSession.connectedPeers.count > 2 {
+            sendMessage("[WARNING] Max connections reached!")
+            return false
+        }
+        else {
+            return true
+        }
     }
     
     func peerJoined(_ peer: MCPeerID) {
