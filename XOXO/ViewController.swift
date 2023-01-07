@@ -74,6 +74,11 @@ class ViewController: UIViewController, ARSessionDelegate {
 extension ViewController {
     
     // Add code here...
+    func cloneModelEntity(_ modelEntity: ModelEntity, position: SIMD3<Float>) -> ModelEntity {
+        let newModelEntity = modelEntity.clone(recursive: false)
+        newModelEntity.position = position
+        return newModelEntity
+    }
     
 }
 
