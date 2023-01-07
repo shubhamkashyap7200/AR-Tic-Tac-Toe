@@ -37,6 +37,7 @@ class ViewController: UIViewController, ARSessionDelegate {
         
         initModelEntities()
         initGestures()
+        initMultiplierSession()
     }
     
     func initARView() {
@@ -163,6 +164,30 @@ extension ViewController {
 extension ViewController {
     
     // Add code here...
+    func initMultiplierSession() {
+        multipeerSession = MultipeerSession(
+            receivedDataHandler: receivedData,
+            peerJoinedHandler: peerJoined,
+            peerLeftHandler: peerLeft,
+            peerDiscoveredHandler: peerDiscovered
+        )
+    }
+    
+    func receivedData(_ data: Data, from peer: MCPeerID) {
+        
+    }
+    
+    func peerDiscovered(_ peer: MCPeerID) -> Bool {
+        
+    }
+    
+    func peerJoined(_ peer: MCPeerID) {
+        
+    }
+    
+    func peerLeft(_ peer: MCPeerID) {
+        
+    }
     
 }
 
