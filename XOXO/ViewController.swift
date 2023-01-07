@@ -7,9 +7,9 @@ class ViewController: UIViewController, ARSessionDelegate {
     
     // MARK: - Properties
     var playerColor: UIColor = .blue
-    var gridModeEntityX: ModelEntity?
-    var gridModeEntityY: ModelEntity?
-    var tileModeEntity: ModelEntity?
+    var gridModelEntityX: ModelEntity?
+    var gridModelEntityY: ModelEntity?
+    var tileModelEntity: ModelEntity?
     
     // MARK: - IBOutlets & IBActions
     
@@ -47,25 +47,25 @@ class ViewController: UIViewController, ARSessionDelegate {
     
     func initModelEntities() {
         // 1
-        gridModeEntityX = ModelEntity(
+        gridModelEntityX = ModelEntity(
             mesh: .generateBox(size: SIMD3(x: 0.3, y: 0.01, z: 0.01)),
             materials: [SimpleMaterial(color: .white, isMetallic: false)]
         )
         
         // 2
-        gridModeEntityY = ModelEntity(
+        gridModelEntityY = ModelEntity(
             mesh: .generateBox(size: SIMD3(x: 0.01, y: 0.01, z: 0.3)),
             materials: [SimpleMaterial(color: .white, isMetallic: false)]
         )
         
         // 3
-        tileModeEntity = ModelEntity(
+        tileModelEntity = ModelEntity(
             mesh: .generateBox(size: SIMD3(x: 0.07, y: 0.01, z: 0.07)),
             materials: [SimpleMaterial(color: .gray, isMetallic: true)]
         )
         
         // 4
-        tileModeEntity?.generateCollisionShapes(recursive: false)
+        tileModelEntity?.generateCollisionShapes(recursive: false)
     }
 }
 
@@ -87,15 +87,28 @@ extension ViewController {
         // 2
         let anchorEntity = AnchorEntity(anchor: arAnchor)
         
-        // 3
-        if let entityX = gridModeEntityX, let entityY = gridModeEntityY {
+        // 3 - Adding White bars
+        if let entityX = gridModelEntityX, let entityY = gridModelEntityY {
             anchorEntity.addChild(cloneModelEntity(entityY, position: SIMD3(x: 0.05, y: 0, z: 0)))
             anchorEntity.addChild(cloneModelEntity(entityY, position: SIMD3(x: -0.05, y: 0, z: 0)))
             anchorEntity.addChild(cloneModelEntity(entityX, position: SIMD3(x: 0.0, y: 0, z: 0.05)))
             anchorEntity.addChild(cloneModelEntity(entityX, position: SIMD3(x: 0.0, y: 0, z: -0.05)))
         }
+        
+        
+        // 4 - Adding Tiles
+        if let tileEntity = tileModelEntity {
+            anchorEntity.addChild(cloneModelEntity(tileEntity, position: SIMD3(x: -0.1, y: 0, z: -0.1)))
+            anchorEntity.addChild(cloneModelEntity(tileEntity, position: SIMD3(x: 0, y: 0, z: -0.1)))
+            anchorEntity.addChild(cloneModelEntity(tileEntity, position: SIMD3(x: 0.1, y: 0, z: -0.1)))
+            anchorEntity.addChild(cloneModelEntity(tileEntity, position: SIMD3(x: -0.1, y: 0, z: 0.0)))
+            anchorEntity.addChild(cloneModelEntity(tileEntity, position: SIMD3(x: 0.0, y: 0, z: 0.0)))
+            anchorEntity.addChild(cloneModelEntity(tileEntity, position: SIMD3(x: 0.1, y: 0, z: 0.0)))
+            anchorEntity.addChild(cloneModelEntity(tileEntity, position: SIMD3(x: -0.1, y: 0, z: 0.1)))
+            anchorEntity.addChild(cloneModelEntity(tileEntity, position: SIMD3(x: 0.0, y: 0, z: 0.1)))
+            anchorEntity.addChild(cloneModelEntity(tileEntity, position: SIMD3(x: 0.1, y: 0, z: 0.1)))
+        }
     }
-    
 }
 
 // MARK: - Gesture Functions
