@@ -128,8 +128,27 @@ extension ViewController {
     }
     
     // MARK: - Selectors
-    @objc func handleTap() {
+    @objc func handleTap(recoginer: UITapGestureRecognizer?) {
         print("DEBUG:: UI :: \(#function) is called")
+        
+        // 1
+        guard let touchLocation = recoginer?.location(in: self.arView) else { return }
+        let results = self.arView.raycast(from: touchLocation, allowing: .estimatedPlane, alignment: .horizontal)
+        
+        // 2
+        if let firstResult = results.first {
+            self.addGameBoardAnchor(transform: firstResult.worldTransform)
+        } else {
+            self.message.text = "[WARNING] No surface detected"
+        }
+        
+         // 3
+        if let hitEntity = self.arView.entity(at: touchLocation) {
+            let modelEntity = hitEntity as! ModelEntity
+            modelEntity.model?.materials = [SimpleMaterial(color: self.playerColor, isMetallic: true)]
+            return
+            
+        }
     }
 }
 
