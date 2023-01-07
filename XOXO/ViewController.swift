@@ -197,7 +197,8 @@ extension ViewController {
     }
     
     func peerJoined(_ peer: MCPeerID) {
-        
+        sendMessage("Hold phones together...")
+        sendARSessionIDTo(peers: [peer])
     }
     
     func peerLeft(_ peer: MCPeerID) {
