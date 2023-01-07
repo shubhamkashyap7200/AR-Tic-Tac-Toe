@@ -142,10 +142,19 @@ extension ViewController {
         
         // 2
         if let hitEntity = self.arView.entity(at: touchLocation) {
-            let modelEntity = hitEntity as! ModelEntity
-            modelEntity.model?.materials = [SimpleMaterial(color: self.playerColor, isMetallic: true)]
-            return
+            if hitEntity.isOwner {
+                let modelEntity = hitEntity as! ModelEntity
+                modelEntity.model?.materials = [ SimpleMaterial(color: self.playerColor, isMetallic: true) ]
+            } else {
+                hitEntity.requestOwnership { result in
+                    if result == .granted {
+                        let modelEntity = hitEntity as! ModelEntity
+                        modelEntity.model?.materials = [ SimpleMaterial(color: self.playerColor, isMetallic: true) ]
+                    }
+                }
+            }
             
+            return
         }
         
         // 3
