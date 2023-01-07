@@ -133,9 +133,17 @@ extension ViewController {
         
         // 1
         guard let touchLocation = recoginer?.location(in: self.arView) else { return }
-        let results = self.arView.raycast(from: touchLocation, allowing: .estimatedPlane, alignment: .horizontal)
         
         // 2
+        if let hitEntity = self.arView.entity(at: touchLocation) {
+            let modelEntity = hitEntity as! ModelEntity
+            modelEntity.model?.materials = [SimpleMaterial(color: self.playerColor, isMetallic: true)]
+            return
+            
+        }
+        
+        // 3
+        let results = self.arView.raycast(from: touchLocation, allowing: .estimatedPlane, alignment: .horizontal)
         if let firstResult = results.first {
             self.addGameBoardAnchor(transform: firstResult.worldTransform)
         } else {
@@ -143,12 +151,6 @@ extension ViewController {
         }
         
          // 3
-        if let hitEntity = self.arView.entity(at: touchLocation) {
-            let modelEntity = hitEntity as! ModelEntity
-            modelEntity.model?.materials = [SimpleMaterial(color: self.playerColor, isMetallic: true)]
-            return
-            
-        }
     }
 }
 
